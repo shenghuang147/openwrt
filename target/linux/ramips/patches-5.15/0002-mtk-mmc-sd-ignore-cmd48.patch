@@ -1,0 +1,13 @@
+--- a/drivers/mmc/host/mtk-mmc/sd.c	2025-02-24 15:47:55.669532080 +0000
++++ b/drivers/mmc/host/mtk-mmc/sd.c	2025-02-24 15:50:01.864463686 +0000
+@@ -1165,6 +1165,10 @@
+ 	//}
+ #endif /* end of --- */
+ 
++	// ignore requests for CMD48.
++	if (cmd->opcode == SD_READ_EXTR_SINGLE)
++		goto done;
++
+ 	if (!data) {
+ 		send_type = SND_CMD;
+ 		if (msdc_do_command(host, cmd, 1, CMD_TIMEOUT) != 0)
